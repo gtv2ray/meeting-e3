@@ -1,0 +1,89 @@
+// @ts-ignore;
+import React, { useState } from 'react';
+// @ts-ignore;
+import { Button, Card, CardHeader, CardTitle, CardContent, Input, useToast } from '@/components/ui';
+// @ts-ignore;
+import { Lock, Mail } from 'lucide-react';
+
+export default function Login(props) {
+  const {
+    $w
+  } = props;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const {
+    toast
+  } = useToast();
+  const handleLogin = async () => {
+    try {
+      setLoading(true);
+      const result = await $w.cloud.callDataSource({
+        dataSourceName: 'users',
+        methodName: 'wedaGetRecordsV2',
+        params: {
+          filter: {
+            where: {
+              email: {
+                $eq: email
+              },
+              password: {
+                $eq: password
+              }
+            }
+          }
+        }
+      });
+      if (result.records.length > 0) {
+        toast({
+          title: '登录成功'
+        });
+        $w.utils.navigateTo({
+          pageId: 'meetings'
+        });
+      } else {
+        toast({
+          title: '登录失败',
+          description: '邮箱或密码错误',
+          variant: 'destructive'
+        });
+      }
+    } catch (error) {
+      toast({
+        title: '登录失败',
+        description: error.message,
+        variant: 'destructive'
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+  return <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle className="text-center">会议管理系统登录</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <div className="flex items-center space-x-2">
+              <Mail className="h-4 w-4" />
+              <span>邮箱</span>
+            </div>
+            <Input type="email" placeholder="请输入邮箱" value={email} onChange={e => setEmail(e.target.value)} />
+          </div>
+          
+          <div className="space-y-2">
+            <div className="flex items-center space-x-2">
+              <Lock className="h-4 w-4" />
+              <span>密码</span>
+            </div>
+            <Input type="password" placeholder="请输入密码" value={password} onChange={e => setPassword(e.target.value)} />
+          </div>
+          
+          <Button className="w-full" onClick={handleLogin} disabled={loading}>
+            {loading ? '登录中...' : '登录'}
+          </Button>
+        </CardContent>
+      </Card>
+    </div>;
+}

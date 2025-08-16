@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 // @ts-ignore;
 import { Button, Card, Table, Input, Select, Modal, Badge } from '@/components/ui';
 // @ts-ignore;
-import { Users, Plus, Edit, Trash, Search } from 'lucide-react';
+import { Plus, Edit, Trash, Search } from 'lucide-react';
 
 export default function UserManagement(props) {
   const [users, setUsers] = useState([{

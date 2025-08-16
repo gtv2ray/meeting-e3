@@ -4,205 +4,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>会议管理系统 - 首页</title>
+  <title>山金期货会议管理系统</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    .sidebar {
-      transition: all 0.3s;
+    .gradient-bg {
+      background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3949ab 100%);
     }
-    .meeting-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    .gold-text {
+      color: #FFD700;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
   </style>
 </head>
-<body class="bg-gray-100">
-  <div class="flex h-screen">
-    <!-- 侧边栏 -->
-    <div class="sidebar w-64 bg-blue-800 text-white p-4">
-      <div class="flex items-center mb-8">
-        <i class="fas fa-calendar-alt text-2xl mr-2"></i>
-        <h1 class="text-xl font-bold">会议管理系统</h1>
+<body class="min-h-screen gradient-bg text-white">
+  <div class="container mx-auto px-4 py-12">
+    <!-- 顶部标题区 -->
+    <header class="text-center mb-16">
+      <div class="flex justify-center mb-6">
+        <i class="fas fa-chart-line text-4xl gold-text mr-4"></i>
+        <h1 class="text-4xl md:text-5xl font-bold gold-text">山金期货会议管理系统</h1>
       </div>
-      <nav>
-        <a href="#" class="flex items-center py-2 px-4 bg-blue-700 rounded-lg mb-2">
-          <i class="fas fa-home mr-3"></i>
-          <span>首页</span>
-        </a>
-        <a href="#" class="flex items-center py-2 px-4 hover:bg-blue-700 rounded-lg mb-2">
-          <i class="fas fa-calendar-plus mr-3"></i>
-          <span>创建会议</span>
-        </a>
-        <a href="#" class="flex items-center py-2 px-4 hover:bg-blue-700 rounded-lg mb-2">
-          <i class="fas fa-users mr-3"></i>
-          <span>参会人员</span>
-        </a>
-        <a href="#" class="flex items-center py-2 px-4 hover:bg-blue-700 rounded-lg mb-2">
-          <i class="fas fa-file-alt mr-3"></i>
-          <span>会议纪要</span>
-        </a>
-        <a href="#" class="flex items-center py-2 px-4 hover:bg-blue-700 rounded-lg mb-2">
-          <i class="fas fa-cog mr-3"></i>
-          <span>设置</span>
-        </a>
-      </nav>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+        专业高效的期货行业会议管理平台，助力企业会议全流程数字化
+      </p>
+    </header>
+
+    <!-- 功能卡片区 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- 会议管理 -->
+      <div class="bg-white bg-opacity-10 rounded-xl p-8 backdrop-blur-sm transition-all duration-300 card-hover">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-calendar-alt text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">会议管理</h3>
+          <p class="text-gray-300">创建、安排和管理所有会议</p>
+        </div>
+      </div>
+
+      <!-- 参会人员 -->
+      <div class="bg-white bg-opacity-10 rounded-xl p-8 backdrop-blur-sm transition-all duration-300 card-hover">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-users text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">参会人员</h3>
+          <p class="text-gray-300">管理参会人员信息和权限</p>
+        </div>
+      </div>
+
+      <!-- 会议资料 -->
+      <div class="bg-white bg-opacity-10 rounded-xl p-8 backdrop-blur-sm transition-all duration-300 card-hover">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-file-alt text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">会议资料</h3>
+          <p class="text-gray-300">上传、共享和管理会议文件</p>
+        </div>
+      </div>
+
+      <!-- 统计分析 -->
+      <div class="bg-white bg-opacity-10 rounded-xl p-8 backdrop-blur-sm transition-all duration-300 card-hover">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-chart-pie text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">统计分析</h3>
+          <p class="text-gray-300">查看会议数据和参与情况</p>
+        </div>
+      </div>
     </div>
 
-    <!-- 主内容区 -->
-    <div class="flex-1 overflow-auto p-8">
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-800">我的会议</h2>
-        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
-          <i class="fas fa-plus mr-2"></i>
-          创建会议
-        </button>
-      </div>
-
-      <!-- 会议筛选 -->
-      <div class="bg-white rounded-lg shadow p-4 mb-6">
-        <div class="flex items-center">
-          <div class="mr-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">日期范围</label>
-            <select class="border rounded px-3 py-2 w-40">
-              <option>今天</option>
-              <option>本周</option>
-              <option>本月</option>
-              <option>全部</option>
-            </select>
-          </div>
-          <div class="mr-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">会议状态</label>
-            <select class="border rounded px-3 py-2 w-40">
-              <option>全部</option>
-              <option>待开始</option>
-              <option>进行中</option>
-              <option>已结束</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">搜索</label>
-            <div class="flex">
-              <input type="text" placeholder="搜索会议..." class="border rounded-l px-3 py-2 w-64">
-              <button class="bg-blue-600 text-white px-4 py-2 rounded-r">
-                <i class="fas fa-search"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 会议列表 -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- 会议卡片1 -->
-        <div class="meeting-card bg-white rounded-lg shadow overflow-hidden transition duration-300">
-          <div class="bg-blue-600 text-white p-4">
-            <div class="flex justify-between items-start">
-              <h3 class="font-bold text-lg">产品需求评审会</h3>
-              <span class="bg-blue-800 text-xs px-2 py-1 rounded">进行中</span>
-            </div>
-            <p class="text-sm mt-1">2025-08-16 14:00 - 15:30</p>
-          </div>
-          <div class="p-4">
-            <p class="text-gray-600 mb-3">讨论Q3产品需求优先级和资源分配</p>
-            <div class="flex items-center text-sm text-gray-500 mb-3">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>线上会议</span>
-            </div>
-            <div class="flex items-center text-sm text-gray-500 mb-4">
-              <i class="fas fa-user mr-2"></i>
-              <span>主持人: 张经理</span>
-            </div>
-            <div class="flex justify-between items-center">
-              <div class="flex -space-x-2">
-                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
-                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
-                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/68.jpg" alt="">
-                <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center text-xs">+5</div>
-              </div>
-              <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">查看详情</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 会议卡片2 -->
-        <div class="meeting-card bg-white rounded-lg shadow overflow-hidden transition duration-300">
-          <div class="bg-green-600 text-white p-4">
-            <div class="flex justify-between items-start">
-              <h3 class="font-bold text-lg">技术方案讨论</h3>
-              <span class="bg-green-800 text-xs px-2 py-1 rounded">待开始</span>
-            </div>
-            <p class="text-sm mt-1">2025-08-17 10:00 - 11:30</p>
-          </div>
-          <div class="p-4">
-            <p class="text-gray-600 mb-3">讨论新项目技术架构选型</p>
-            <div class="flex items-center text-sm text-gray-500 mb-3">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>3楼会议室</span>
-            </div>
-            <div class="flex items-center text-sm text-gray-500 mb-4">
-              <i class="fas fa-user mr-2"></i>
-              <span>主持人: 李总监</span>
-            </div>
-            <div class="flex justify-between items-center">
-              <div class="flex -space-x-2">
-                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/75.jpg" alt="">
-                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/65.jpg" alt="">
-                <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center text-xs">+3</div>
-              </div>
-              <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">查看详情</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 会议卡片3 -->
-        <div class="meeting-card bg-white rounded-lg shadow overflow-hidden transition duration-300">
-          <div class="bg-gray-600 text-white p-4">
-            <div class="flex justify-between items-start">
-              <h3 class="font-bold text-lg">月度总结会</h3>
-              <span class="bg-gray-800 text-xs px-2 py-1 rounded">已结束</span>
-            </div>
-            <p class="text-sm mt-1">2025-08-15 09:00 - 11:00</p>
-          </div>
-          <div class="p-4">
-            <p class="text-gray-600 mb-3">7月工作总结和8月工作计划</p>
-            <div class="flex items-center text-sm text-gray-500 mb-3">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>1楼大会议室</span>
-            </div>
-            <div class="flex items-center text-sm text-gray-500 mb-4">
-              <i class="fas fa-user mr-2"></i>
-              <span>主持人: 王总</span>
-            </div>
-            <div class="flex justify-between items-center">
-              <div class="flex -space-x-2">
-                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/22.jpg" alt="">
-                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/33.jpg" alt="">
-                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/44.jpg" alt="">
-                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/55.jpg" alt="">
-                <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center text-xs">+8</div>
-              </div>
-              <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">查看详情</button>
-            </div>
-          </div>
-        </div>
+    <!-- 底部用户区 -->
+    <div class="mt-16 text-center">
+      <div class="inline-flex items-center bg-white bg-opacity-20 rounded-full px-6 py-3">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="用户头像" class="w-10 h-10 rounded-full mr-3">
+        <span class="font-medium">欢迎，张经理</span>
+        <i class="fas fa-chevron-down ml-3 text-sm"></i>
       </div>
     </div>
   </div>
 
   <script>
-    // 会议卡片点击事件
-    document.querySelectorAll('.meeting-card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        if (!e.target.closest('button')) {
-          window.location.href = 'meeting-detail.html';
-        }
+    // 卡片点击效果
+    document.querySelectorAll('.card-hover').forEach(card => {
+      card.addEventListener('click', function() {
+        // 这里可以添加导航逻辑
+        console.log('导航到: ' + this.querySelector('h3').textContent);
       });
-    });
-
-    // 创建会议按钮点击事件
-    document.querySelector('button.bg-blue-600').addEventListener('click', () => {
-      window.location.href = 'create-meeting.html';
     });
   </script>
 </body>

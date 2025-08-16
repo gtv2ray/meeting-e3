@@ -5,7 +5,7 @@ import { Button, Card, Table, useToast } from '@/components/ui';
 // @ts-ignore;
 import { ArrowLeft } from 'lucide-react';
 
-export default function UsersPage(props) {
+export default function DepartmentsPage(props) {
   const {
     $w
   } = props;
@@ -13,15 +13,15 @@ export default function UsersPage(props) {
     toast
   } = useToast();
 
-  // 模拟用户数据
-  const users = [{
+  // 模拟部门数据
+  const departments = [{
     id: 1,
-    name: '张三',
-    role: 'admin'
+    name: '技术部',
+    count: 15
   }, {
     id: 2,
-    name: '李四',
-    role: 'user'
+    name: '市场部',
+    count: 8
   }];
   return <div className="p-6">
       <Button onClick={() => $w.utils.navigateBack()} variant="outline" className="mb-4">
@@ -33,15 +33,15 @@ export default function UsersPage(props) {
           <Table.Header>
             <Table.Row>
               <Table.Head>ID</Table.Head>
-              <Table.Head>姓名</Table.Head>
-              <Table.Head>角色</Table.Head>
+              <Table.Head>部门名称</Table.Head>
+              <Table.Head>人数</Table.Head>
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {users.map(user => <Table.Row key={user.id}>
-                <Table.Cell>{user.id}</Table.Cell>
-                <Table.Cell>{user.name}</Table.Cell>
-                <Table.Cell>{user.role}</Table.Cell>
+            {departments.map(dept => <Table.Row key={dept.id}>
+                <Table.Cell>{dept.id}</Table.Cell>
+                <Table.Cell>{dept.name}</Table.Cell>
+                <Table.Cell>{dept.count}</Table.Cell>
               </Table.Row>)}
           </Table.Body>
         </Table>

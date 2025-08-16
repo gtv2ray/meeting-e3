@@ -7,6 +7,7 @@ import EDITMEETING from '../pages/editMeeting.jsx';
 import HOME from '../pages/home.jsx';
 import ADMIN from '../pages/admin.jsx';
 import USERS from '../pages/users.jsx';
+import DEPARTMENTS from '../pages/departments.jsx';
 export const routers = [{
   id: "meetings",
   component: MEETINGS
@@ -34,4 +35,7 @@ export const routers = [{
 }, {
   id: "users",
   component: USERS
+}, {
+  id: "departments",
+  component: DEPARTMENTS
 }]

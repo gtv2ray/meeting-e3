@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 // @ts-ignore;
 import { Button, Card, Table, Input, Select, Modal, Badge, useToast } from '@/components/ui';
 // @ts-ignore;
-import { Users, Plus, Edit, Trash, Search, ArrowLeft } from 'lucide-react';
+import { Plus, Edit, Trash, Search, ArrowLeft } from 'lucide-react';
 
 export default function AdminPage(props) {
   const {

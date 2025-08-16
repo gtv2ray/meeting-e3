@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 // @ts-ignore;
 import { Button, Card, CardHeader, CardTitle, CardContent, Input, useToast } from '@/components/ui';
 // @ts-ignore;
-import { Lock, Mail } from 'lucide-react';
+import { Lock, User } from 'lucide-react';
 
 export default function Login(props) {
   const {
     $w
   } = props;
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const {
@@ -18,14 +18,27 @@ export default function Login(props) {
   const handleLogin = async () => {
     try {
       setLoading(true);
+
+      // 硬编码管理员账号验证
+      if (username === 'admin' && password === 'admin123') {
+        toast({
+          title: '管理员登录成功'
+        });
+        $w.utils.navigateTo({
+          pageId: 'meetings'
+        });
+        return;
+      }
+
+      // 普通用户验证
       const result = await $w.cloud.callDataSource({
         dataSourceName: 'users',
         methodName: 'wedaGetRecordsV2',
         params: {
           filter: {
             where: {
-              email: {
-                $eq: email
+              username: {
+                $eq: username
               },
               password: {
                 $eq: password
@@ -44,7 +57,7 @@ export default function Login(props) {
       } else {
         toast({
           title: '登录失败',
-          description: '邮箱或密码错误',
+          description: '用户名或密码错误',
           variant: 'destructive'
         });
       }
@@ -66,10 +79,10 @@ export default function Login(props) {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <div className="flex items-center space-x-2">
-              <Mail className="h-4 w-4" />
-              <span>邮箱</span>
+              <User className="h-4 w-4" />
+              <span>用户名</span>
             </div>
-            <Input type="email" placeholder="请输入邮箱" value={email} onChange={e => setEmail(e.target.value)} />
+            <Input placeholder="请输入用户名" value={username} onChange={e => setUsername(e.target.value)} />
           </div>
           
           <div className="space-y-2">

@@ -90,6 +90,15 @@ export default function Login(props) {
           <Button className="w-full" onClick={handleLogin} disabled={loading}>
             {loading ? '登录中...' : '登录'}
           </Button>
+          
+          <div className="text-center text-sm text-gray-500">
+            还没有账号？{' '}
+            <span className="text-blue-600 cursor-pointer hover:underline" onClick={() => $w.utils.navigateTo({
+            pageId: 'register'
+          })}>
+              立即注册
+            </span>
+          </div>
         </CardContent>
       </Card>
     </div>;

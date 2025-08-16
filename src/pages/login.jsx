@@ -18,21 +18,8 @@ export default function Login(props) {
   const handleLogin = async () => {
     try {
       setLoading(true);
-
-      // 硬编码管理员账号验证
-      if (username === 'admin' && password === 'admin123') {
-        toast({
-          title: '管理员登录成功'
-        });
-        $w.utils.navigateTo({
-          pageId: 'admin' // 管理员跳转到后台首页
-        });
-        return;
-      }
-
-      // 普通用户验证
       const result = await $w.cloud.callDataSource({
-        dataSourceName: 'users',
+        dataSourceName: 'sys_user',
         methodName: 'wedaGetRecordsV2',
         params: {
           filter: {
@@ -48,12 +35,19 @@ export default function Login(props) {
         }
       });
       if (result.records.length > 0) {
+        const user = result.records[0];
         toast({
           title: '登录成功'
         });
-        $w.utils.navigateTo({
-          pageId: 'meetings' // 普通用户跳转到会议管理
-        });
+        if (user.role === 'admin') {
+          $w.utils.navigateTo({
+            pageId: 'admin'
+          });
+        } else {
+          $w.utils.navigateTo({
+            pageId: 'meetings'
+          });
+        }
       } else {
         toast({
           title: '登录失败',

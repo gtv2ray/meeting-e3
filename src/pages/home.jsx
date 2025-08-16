@@ -2,8 +2,10 @@
 import React from 'react';
 // @ts-ignore;
 import { Button } from '@/components/ui';
+// @ts-ignore;
+import { Home, User, Calendar, Settings } from 'lucide-react';
 
-export default function Home(props) {
+export default function HomePage(props) {
   const {
     $w
   } = props;
@@ -20,7 +22,33 @@ export default function Home(props) {
     description: "会议数据和参与度分析",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
   }];
-  return <div className="min-h-screen bg-gray-50">
+  return <div className="min-h-screen bg-gray-50 p-6">
+      <div className="grid grid-cols-4 gap-4 mb-8">
+        <Button onClick={() => $w.utils.navigateTo({
+        pageId: 'home',
+        params: {}
+      })} variant="ghost">
+          <Home className="h-4 w-4 mr-2" /> 首页
+        </Button>
+        <Button onClick={() => $w.utils.navigateTo({
+        pageId: 'users',
+        params: {}
+      })} variant="ghost">
+          <User className="h-4 w-4 mr-2" /> 用户管理
+        </Button>
+        <Button onClick={() => $w.utils.navigateTo({
+        pageId: 'meetings',
+        params: {}
+      })} variant="ghost">
+          <Calendar className="h-4 w-4 mr-2" /> 会议管理
+        </Button>
+        <Button onClick={() => $w.utils.navigateTo({
+        pageId: 'admin',
+        params: {}
+      })} variant="ghost">
+          <Settings className="h-4 w-4 mr-2" /> 系统设置
+        </Button>
+      </div>
       <div className="container mx-auto px-4 py-8">
         {/* 头部 */}
         <header className="text-center mb-12">
@@ -49,4 +77,3 @@ export default function Home(props) {
         </div>
       </div>
     </div>;
-}

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 // @ts-ignore;
 import { Button, Card, Table, Input, Select, Modal, Badge, useToast } from '@/components/ui';
 // @ts-ignore;
-import { Plus, Edit, Trash, Search } from 'lucide-react';
+import { Plus, Edit, Trash, Search, ArrowLeft } from 'lucide-react';
 
 export default function UserManagement(props) {
   const {
@@ -36,6 +36,9 @@ export default function UserManagement(props) {
     });
   };
   return <div className="p-6">
+      <Button onClick={() => $w.utils.navigateBack()} variant="outline" className="mb-4">
+        <ArrowLeft className="h-4 w-4 mr-2" /> 返回
+      </Button>
       <Card>
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-xl font-semibold">用户管理</h2>

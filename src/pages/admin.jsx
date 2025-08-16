@@ -1,48 +1,40 @@
-// pages/users.jsx
+// @ts-ignore;
 import React, { useState } from 'react';
-import { 
-  Button, 
-  Card, 
-  Table, 
-  Input, 
-  Select, 
-  Modal,
-  Badge
-} from '@/components/ui';
-import { 
-  Users, 
-  Plus,
-  Edit,
-  Trash,
-  Search
-} from 'lucide-react';
+// @ts-ignore;
+import { Button, Card, Table, Input, Select, Modal, Badge } from '@/components/ui';
+// @ts-ignore;
+import { Users, Plus, Edit, Trash, Search, ArrowLeft } from 'lucide-react';
 
-export default function UserManagement(props) {
-  const [users, setUsers] = useState([
-    { id: 1, name: '张三', dept: '技术部', role: 'admin', status: 'active' },
-    { id: 2, name: '李四', dept: '市场部', role: 'user', status: 'inactive' }
-  ]);
+export default function AdminPage(props) {
+  const {
+    $w
+  } = props;
+  const [users, setUsers] = useState([{
+    id: 1,
+    name: '张三',
+    dept: '技术部',
+    role: 'admin',
+    status: 'active'
+  }, {
+    id: 2,
+    name: '李四',
+    dept: '市场部',
+    role: 'user',
+    status: 'inactive'
+  }]);
   const [showModal, setShowModal] = useState(false);
   const [searchText, setSearchText] = useState('');
-
-  const filteredUsers = users.filter(user => 
-    user.name.includes(searchText) || 
-    user.dept.includes(searchText)
-  );
-
-  return (
-    <div className="p-6">
+  const filteredUsers = users.filter(user => user.name.includes(searchText) || user.dept.includes(searchText));
+  return <div className="p-6">
+      <Button onClick={() => $w.utils.navigateBack()} variant="outline" className="mb-4">
+        <ArrowLeft className="h-4 w-4 mr-2" /> 返回
+      </Button>
+      
       <Card>
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-xl font-semibold">用户管理</h2>
           <div className="flex space-x-2">
-            <Input 
-              placeholder="搜索用户..." 
-              className="w-64"
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              icon={<Search className="h-4 w-4" />}
-            />
+            <Input placeholder="搜索用户..." className="w-64" value={searchText} onChange={e => setSearchText(e.target.value)} icon={<Search className="h-4 w-4" />} />
             <Button onClick={() => setShowModal(true)}>
               <Plus className="h-4 w-4 mr-2" /> 新增用户
             </Button>
@@ -61,8 +53,7 @@ export default function UserManagement(props) {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {filteredUsers.map(user => (
-              <Table.Row key={user.id}>
+            {filteredUsers.map(user => <Table.Row key={user.id}>
                 <Table.Cell>{user.id}</Table.Cell>
                 <Table.Cell>{user.name}</Table.Cell>
                 <Table.Cell>{user.dept}</Table.Cell>
@@ -82,8 +73,7 @@ export default function UserManagement(props) {
                     </Button>
                   </div>
                 </Table.Cell>
-              </Table.Row>
-            ))}
+              </Table.Row>)}
           </Table.Body>
         </Table>
       </Card>
@@ -110,6 +100,5 @@ export default function UserManagement(props) {
           <Button>保存</Button>
         </Modal.Footer>
       </Modal>
-    </div>
-  );
+    </div>;
 }

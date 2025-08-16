@@ -4,6 +4,7 @@ import CREATEMEETING from '../pages/createMeeting.jsx';
 import LOGIN from '../pages/login.jsx';
 import REGISTER from '../pages/register.jsx';
 import EDITMEETING from '../pages/editMeeting.jsx';
+import HOME from '../pages/home.jsx';
 export const routers = [{
   id: "meetings",
   component: MEETINGS
@@ -22,4 +23,7 @@ export const routers = [{
 }, {
   id: "editMeeting",
   component: EDITMEETING
+}, {
+  id: "home",
+  component: HOME
 }]

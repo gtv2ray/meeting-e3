@@ -1,9 +1,9 @@
 // @ts-ignore;
 import React, { useState } from 'react';
 // @ts-ignore;
-import { Button, Card, Table, Input, Select, Modal, Badge, useToast } from '@/components/ui';
+import { Button, Card, Table, Input, Select, Modal, Badge, useToast, Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui';
 // @ts-ignore;
-import { Plus, Edit, Trash, Search, ArrowLeft } from 'lucide-react';
+import { Plus, Edit, Trash, Search, ArrowLeft, Lock, Shield } from 'lucide-react';
 
 export default function AdminPage(props) {
   const {
@@ -22,8 +22,15 @@ export default function AdminPage(props) {
     role: 'user',
     status: 'inactive'
   }]);
-  const [showModal, setShowModal] = useState(false);
+  const [showUserModal, setShowUserModal] = useState(false);
+  const [showDeptModal, setShowDeptModal] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const [newDeptUser, setNewDeptUser] = useState({
+    name: '',
+    dept: '',
+    role: 'user',
+    password: ''
+  });
   const {
     toast
   } = useToast();
@@ -35,20 +42,52 @@ export default function AdminPage(props) {
       description: '用户已删除'
     });
   };
+  const handleCreateDeptUser = () => {
+    if (!newDeptUser.name || !newDeptUser.dept || !newDeptUser.password) {
+      toast({
+        title: '请填写完整信息',
+        variant: 'destructive'
+      });
+      return;
+    }
+    const newUser = {
+      id: users.length + 1,
+      name: newDeptUser.name,
+      dept: newDeptUser.dept,
+      role: newDeptUser.role,
+      status: 'active'
+    };
+    setUsers([...users, newUser]);
+    setNewDeptUser({
+      name: '',
+      dept: '',
+      role: 'user',
+      password: ''
+    });
+    setShowDeptModal(false);
+    toast({
+      title: '部门账号创建成功',
+      description: `已为${newDeptUser.dept}创建账号`
+    });
+  };
   return <div className="p-6">
       <Button onClick={() => $w.utils.navigateBack()} variant="outline" className="mb-4">
         <ArrowLeft className="h-4 w-4 mr-2" /> 返回
       </Button>
       
+      <div className="flex space-x-4 mb-4">
+        <Button onClick={() => setShowUserModal(true)}>
+          <Plus className="h-4 w-4 mr-2" /> 新增用户
+        </Button>
+        <Button onClick={() => setShowDeptModal(true)} variant="secondary">
+          <Shield className="h-4 w-4 mr-2" /> 创建部门账号
+        </Button>
+      </div>
+      
       <Card>
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-xl font-semibold">用户管理</h2>
-          <div className="flex space-x-2">
-            <Input placeholder="搜索用户..." className="w-64" value={searchText} onChange={e => setSearchText(e.target.value)} icon={<Search className="h-4 w-4" />} />
-            <Button onClick={() => setShowModal(true)}>
-              <Plus className="h-4 w-4 mr-2" /> 新增用户
-            </Button>
-          </div>
+          <Input placeholder="搜索用户..." className="w-64" value={searchText} onChange={e => setSearchText(e.target.value)} icon={<Search className="h-4 w-4" />} />
         </div>
         
         <Table>
@@ -88,7 +127,98 @@ export default function AdminPage(props) {
         </Table>
       </Card>
 
-      <Modal open={showModal} onClose={() => setShowModal(false)}>
+      {/* 创建部门账号模态框 */}
+      <Modal open={showDeptModal} onClose={() => setShowDeptModal(false)}>
+        <Modal.Header>
+          <Shield className="h-5 w-5 mr-2" />
+          创建部门账号
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <div className="space-y-4">
+              <FormField name="name" render={({
+              field
+            }) => <FormItem>
+                    <FormLabel>用户名</FormLabel>
+                    <FormControl>
+                      <Input placeholder="输入用户名" {...field} value={newDeptUser.name} onChange={e => setNewDeptUser({
+                  ...newDeptUser,
+                  name: e.target.value
+                })} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>} />
+              
+              <FormField name="dept" render={({
+              field
+            }) => <FormItem>
+                    <FormLabel>部门</FormLabel>
+                    <FormControl>
+                      <Select value={newDeptUser.dept} onValueChange={value => setNewDeptUser({
+                  ...newDeptUser,
+                  dept: value
+                })}>
+                        <Select.Trigger>
+                          <Select.Value placeholder="选择部门" />
+                        </Select.Trigger>
+                        <Select.Content>
+                          <Select.Item value="技术部">技术部</Select.Item>
+                          <Select.Item value="市场部">市场部</Select.Item>
+                          <Select.Item value="人事部">人事部</Select.Item>
+                        </Select.Content>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>} />
+              
+              <FormField name="role" render={({
+              field
+            }) => <FormItem>
+                    <FormLabel>角色</FormLabel>
+                    <FormControl>
+                      <Select value={newDeptUser.role} onValueChange={value => setNewDeptUser({
+                  ...newDeptUser,
+                  role: value
+                })}>
+                        <Select.Trigger>
+                          <Select.Value placeholder="选择角色" />
+                        </Select.Trigger>
+                        <Select.Content>
+                          <Select.Item value="admin">管理员</Select.Item>
+                          <Select.Item value="user">普通用户</Select.Item>
+                        </Select.Content>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>} />
+              
+              <FormField name="password" render={({
+              field
+            }) => <FormItem>
+                    <FormLabel>密码</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="设置密码" {...field} value={newDeptUser.password} onChange={e => setNewDeptUser({
+                  ...newDeptUser,
+                  password: e.target.value
+                })} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>} />
+            </div>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="outline" onClick={() => setShowDeptModal(false)}>
+            取消
+          </Button>
+          <Button onClick={handleCreateDeptUser}>
+            <Lock className="h-4 w-4 mr-2" /> 创建账号
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      
+      {/* 原有用户创建模态框 */}
+      <Modal open={showUserModal} onClose={() => setShowUserModal(false)}>
         <Modal.Header>新增用户</Modal.Header>
         <Modal.Body>
           <div className="space-y-4">
@@ -105,14 +235,14 @@ export default function AdminPage(props) {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="outline" onClick={() => setShowModal(false)}>
+          <Button variant="outline" onClick={() => setShowUserModal(false)}>
             取消
           </Button>
           <Button onClick={() => {
           toast({
             title: '用户创建成功'
           });
-          setShowModal(false);
+          setShowUserModal(false);
         }}>
             保存
           </Button>

@@ -25,7 +25,7 @@ export default function Login(props) {
           title: '管理员登录成功'
         });
         $w.utils.navigateTo({
-          pageId: 'meetings'
+          pageId: 'admin' // 管理员跳转到后台首页
         });
         return;
       }
@@ -52,7 +52,7 @@ export default function Login(props) {
           title: '登录成功'
         });
         $w.utils.navigateTo({
-          pageId: 'meetings'
+          pageId: 'meetings' // 普通用户跳转到会议管理
         });
       } else {
         toast({

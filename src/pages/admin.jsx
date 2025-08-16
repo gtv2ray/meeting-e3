@@ -1,7 +1,7 @@
 // @ts-ignore;
 import React, { useState } from 'react';
 // @ts-ignore;
-import { Button, Card, Table, Input, Select, Modal, Badge } from '@/components/ui';
+import { Button, Card, Table, Input, Select, Modal, Badge, useToast } from '@/components/ui';
 // @ts-ignore;
 import { Users, Plus, Edit, Trash, Search, ArrowLeft } from 'lucide-react';
 
@@ -24,7 +24,17 @@ export default function AdminPage(props) {
   }]);
   const [showModal, setShowModal] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const {
+    toast
+  } = useToast();
   const filteredUsers = users.filter(user => user.name.includes(searchText) || user.dept.includes(searchText));
+  const handleDelete = userId => {
+    setUsers(users.filter(user => user.id !== userId));
+    toast({
+      title: '删除成功',
+      description: '用户已删除'
+    });
+  };
   return <div className="p-6">
       <Button onClick={() => $w.utils.navigateBack()} variant="outline" className="mb-4">
         <ArrowLeft className="h-4 w-4 mr-2" /> 返回
@@ -68,7 +78,7 @@ export default function AdminPage(props) {
                     <Button size="sm" variant="outline">
                       <Edit className="h-4 w-4 mr-1" /> 编辑
                     </Button>
-                    <Button size="sm" variant="destructive">
+                    <Button size="sm" variant="destructive" onClick={() => handleDelete(user.id)}>
                       <Trash className="h-4 w-4 mr-1" /> 删除
                     </Button>
                   </div>
@@ -78,7 +88,6 @@ export default function AdminPage(props) {
         </Table>
       </Card>
 
-      {/* 新增用户模态框 */}
       <Modal open={showModal} onClose={() => setShowModal(false)}>
         <Modal.Header>新增用户</Modal.Header>
         <Modal.Body>
@@ -86,18 +95,27 @@ export default function AdminPage(props) {
             <Input label="用户名" placeholder="输入用户名" />
             <Input label="密码" type="password" placeholder="输入密码" />
             <Select label="部门">
-              <Select.Option value="tech">技术部</Select.Option>
-              <Select.Option value="market">市场部</Select.Option>
+              <Select.Item value="tech">技术部</Select.Item>
+              <Select.Item value="market">市场部</Select.Item>
             </Select>
             <Select label="角色">
-              <Select.Option value="admin">管理员</Select.Option>
-              <Select.Option value="user">普通用户</Select.Option>
+              <Select.Item value="admin">管理员</Select.Item>
+              <Select.Item value="user">普通用户</Select.Item>
             </Select>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="outline" onClick={() => setShowModal(false)}>取消</Button>
-          <Button>保存</Button>
+          <Button variant="outline" onClick={() => setShowModal(false)}>
+            取消
+          </Button>
+          <Button onClick={() => {
+          toast({
+            title: '用户创建成功'
+          });
+          setShowModal(false);
+        }}>
+            保存
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>;

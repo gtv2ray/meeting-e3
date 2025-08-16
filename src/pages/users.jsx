@@ -1,11 +1,14 @@
 // @ts-ignore;
 import React, { useState } from 'react';
 // @ts-ignore;
-import { Button, Card, Table, Input, Select, Modal, Badge } from '@/components/ui';
+import { Button, Card, Table, Input, Select, Modal, Badge, useToast } from '@/components/ui';
 // @ts-ignore;
 import { Plus, Edit, Trash, Search } from 'lucide-react';
 
 export default function UserManagement(props) {
+  const {
+    $w
+  } = props;
   const [users, setUsers] = useState([{
     id: 1,
     name: '张三',
@@ -21,7 +24,17 @@ export default function UserManagement(props) {
   }]);
   const [showModal, setShowModal] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const {
+    toast
+  } = useToast();
   const filteredUsers = users.filter(user => user.name.includes(searchText) || user.dept.includes(searchText));
+  const handleDelete = userId => {
+    setUsers(users.filter(user => user.id !== userId));
+    toast({
+      title: '删除成功',
+      description: '用户已删除'
+    });
+  };
   return <div className="p-6">
       <Card>
         <div className="flex justify-between items-center p-4 border-b">
@@ -61,7 +74,7 @@ export default function UserManagement(props) {
                     <Button size="sm" variant="outline">
                       <Edit className="h-4 w-4 mr-1" /> 编辑
                     </Button>
-                    <Button size="sm" variant="destructive">
+                    <Button size="sm" variant="destructive" onClick={() => handleDelete(user.id)}>
                       <Trash className="h-4 w-4 mr-1" /> 删除
                     </Button>
                   </div>
@@ -89,7 +102,12 @@ export default function UserManagement(props) {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="outline" onClick={() => setShowModal(false)}>取消</Button>
-          <Button>保存</Button>
+          <Button onClick={() => {
+          toast({
+            title: '用户创建成功'
+          });
+          setShowModal(false);
+        }}>保存</Button>
         </Modal.Footer>
       </Modal>
     </div>;

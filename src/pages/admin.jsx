@@ -1,99 +1,115 @@
-// @ts-ignore;
-import React from 'react';
-// @ts-ignore;
-import { Card, CardHeader, CardTitle, CardContent, Button } from '@/components/ui';
-// @ts-ignore;
-import { Users, Shield, Building, Lock } from 'lucide-react';
+// pages/users.jsx
+import React, { useState } from 'react';
+import { 
+  Button, 
+  Card, 
+  Table, 
+  Input, 
+  Select, 
+  Modal,
+  Badge
+} from '@/components/ui';
+import { 
+  Users, 
+  Plus,
+  Edit,
+  Trash,
+  Search
+} from 'lucide-react';
 
-export default function AdminDashboard(props) {
-  const {
-    $w
-  } = props;
-  return <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">管理员控制台</h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">用户管理</CardTitle>
-            <Users className="h-4 w-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">1,248</div>
-            <Button variant="outline" className="mt-4" onClick={() => $w.utils.navigateTo({
-            pageId: 'users'
-          })}>
-              管理用户
-            </Button>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">部门管理</CardTitle>
-            <Building className="h-4 w-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">24</div>
-            <Button variant="outline" className="mt-4" onClick={() => $w.utils.navigateTo({
-            pageId: 'departments'
-          })}>
-              管理部门
-            </Button>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">权限管理</CardTitle>
-            <Lock className="h-4 w-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">12</div>
-            <Button variant="outline" className="mt-4" onClick={() => $w.utils.navigateTo({
-            pageId: 'permissions'
-          })}>
-              管理权限
-            </Button>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">系统监控</CardTitle>
-            <Shield className="h-4 w-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">100%</div>
-            <Button variant="outline" className="mt-4">
-              查看详情
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-      
+export default function UserManagement(props) {
+  const [users, setUsers] = useState([
+    { id: 1, name: '张三', dept: '技术部', role: 'admin', status: 'active' },
+    { id: 2, name: '李四', dept: '市场部', role: 'user', status: 'inactive' }
+  ]);
+  const [showModal, setShowModal] = useState(false);
+  const [searchText, setSearchText] = useState('');
+
+  const filteredUsers = users.filter(user => 
+    user.name.includes(searchText) || 
+    user.dept.includes(searchText)
+  );
+
+  return (
+    <div className="p-6">
       <Card>
-        <CardHeader>
-          <CardTitle>最近活动</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-medium">新用户注册</p>
-                <p className="text-sm text-gray-500">张三 - 技术部</p>
-              </div>
-              <p className="text-sm text-gray-500">2分钟前</p>
-            </div>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-medium">会议创建</p>
-                <p className="text-sm text-gray-500">季度总结会议</p>
-              </div>
-              <p className="text-sm text-gray-500">1小时前</p>
-            </div>
+        <div className="flex justify-between items-center p-4 border-b">
+          <h2 className="text-xl font-semibold">用户管理</h2>
+          <div className="flex space-x-2">
+            <Input 
+              placeholder="搜索用户..." 
+              className="w-64"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              icon={<Search className="h-4 w-4" />}
+            />
+            <Button onClick={() => setShowModal(true)}>
+              <Plus className="h-4 w-4 mr-2" /> 新增用户
+            </Button>
           </div>
-        </CardContent>
+        </div>
+        
+        <Table>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>ID</Table.Head>
+              <Table.Head>姓名</Table.Head>
+              <Table.Head>部门</Table.Head>
+              <Table.Head>角色</Table.Head>
+              <Table.Head>状态</Table.Head>
+              <Table.Head>操作</Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {filteredUsers.map(user => (
+              <Table.Row key={user.id}>
+                <Table.Cell>{user.id}</Table.Cell>
+                <Table.Cell>{user.name}</Table.Cell>
+                <Table.Cell>{user.dept}</Table.Cell>
+                <Table.Cell>{user.role}</Table.Cell>
+                <Table.Cell>
+                  <Badge variant={user.status === 'active' ? 'default' : 'destructive'}>
+                    {user.status === 'active' ? '活跃' : '禁用'}
+                  </Badge>
+                </Table.Cell>
+                <Table.Cell>
+                  <div className="flex space-x-2">
+                    <Button size="sm" variant="outline">
+                      <Edit className="h-4 w-4 mr-1" /> 编辑
+                    </Button>
+                    <Button size="sm" variant="destructive">
+                      <Trash className="h-4 w-4 mr-1" /> 删除
+                    </Button>
+                  </div>
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
       </Card>
-    </div>;
+
+      {/* 新增用户模态框 */}
+      <Modal open={showModal} onClose={() => setShowModal(false)}>
+        <Modal.Header>新增用户</Modal.Header>
+        <Modal.Body>
+          <div className="space-y-4">
+            <Input label="用户名" placeholder="输入用户名" />
+            <Input label="密码" type="password" placeholder="输入密码" />
+            <Select label="部门">
+              <Select.Option value="tech">技术部</Select.Option>
+              <Select.Option value="market">市场部</Select.Option>
+            </Select>
+            <Select label="角色">
+              <Select.Option value="admin">管理员</Select.Option>
+              <Select.Option value="user">普通用户</Select.Option>
+            </Select>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="outline" onClick={() => setShowModal(false)}>取消</Button>
+          <Button>保存</Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 }

@@ -17,6 +17,18 @@ export default function Meetings(props) {
   useEffect(() => {
     const fetchMeetings = async () => {
       try {
+        const currentUser = $w.auth.currentUser;
+        const isAdmin = currentUser?.role === 'admin';
+        let filter = {};
+        if (!isAdmin && currentUser?.department) {
+          filter = {
+            where: {
+              'participants.department': {
+                $eq: currentUser.department
+              }
+            }
+          };
+        }
         const result = await $w.cloud.callDataSource({
           dataSourceName: 'meetings',
           methodName: 'wedaGetRecordsV2',
@@ -24,6 +36,7 @@ export default function Meetings(props) {
             select: {
               $master: true
             },
+            filter: filter,
             pageSize: 10,
             pageNumber: 1
           }

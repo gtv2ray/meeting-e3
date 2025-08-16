@@ -4,67 +4,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智能会议管理系统</title>
+    <title>管理员后台 - 首页</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        .feature-card {
-            transition: transform 0.3s ease;
-        }
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
+      .sidebar {
+        transition: all 0.3s;
+      }
+      .dark-bg {
+        background-color: #1a202c;
+      }
+      .dark-card {
+        background-color: #2d3748;
+      }
+      .dark-text {
+        color: #f7fafc;
+      }
+      .dark-hover:hover {
+        background-color: #4a5568;
+      }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <!-- 头部 -->
-        <header class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-blue-800 mb-2">智能会议管理系统</h1>
-            <p class="text-gray-600 text-lg">高效、智能、安全的会议解决方案</p>
-        </header>
-
-        <!-- 功能展示 -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <div class="feature-card bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                     alt="会议管理" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">会议管理</h3>
-                    <p class="text-gray-600">创建、安排和管理您的会议</p>
-                </div>
+<body class="bg-gray-100 dark-bg dark-text min-h-screen">
+    <div class="flex">
+        <!-- 侧边栏 -->
+        <div class="sidebar w-64 h-screen bg-gray-800 fixed">
+            <div class="p-4 border-b border-gray-700">
+                <h1 class="text-xl font-bold text-white">Admin Console</h1>
             </div>
-
-            <div class="feature-card bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                     alt="参会人员" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">参会人员</h3>
-                    <p class="text-gray-600">管理会议参与者和权限</p>
-                </div>
-            </div>
-
-            <div class="feature-card bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                     alt="统计分析" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">统计分析</h3>
-                    <p class="text-gray-600">会议数据和参与度分析</p>
-                </div>
-            </div>
+            <nav class="mt-4">
+                <div class="px-4 py-2 text-gray-400 uppercase text-xs font-semibold">主菜单</div>
+                <a href="#" class="block px-4 py-3 text-white bg-gray-700">
+                    <i class="fas fa-tachometer-alt mr-2"></i>仪表盘
+                </a>
+                <a href="users.html" class="block px-4 py-3 text-gray-300 hover:bg-gray-700">
+                    <i class="fas fa-users mr-2"></i>用户管理
+                </a>
+                <a href="departments.html" class="block px-4 py-3 text-gray-300 hover:bg-gray-700">
+                    <i class="fas fa-sitemap mr-2"></i>部门管理
+                </a>
+                <a href="permissions.html" class="block px-4 py-3 text-gray-300 hover:bg-gray-700">
+                    <i class="fas fa-lock mr-2"></i>权限管理
+                </a>
+                <div class="px-4 py-2 text-gray-400 uppercase text-xs font-semibold mt-4">系统设置</div>
+                <a href="#" class="block px-4 py-3 text-gray-300 hover:bg-gray-700">
+                    <i class="fas fa-cog mr-2"></i>系统配置
+                </a>
+            </nav>
         </div>
 
-        <!-- 入口按钮 -->
-        <div class="text-center">
-            <button id="loginBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">
-                进入会议管理系统 <i class="fas fa-arrow-right ml-2"></i>
-            </button>
+        <!-- 主内容区 -->
+        <div class="flex-1 ml-64">
+            <!-- 顶部导航 -->
+            <header class="bg-white dark-bg shadow-sm py-4 px-6 flex justify-between items-center">
+                <div class="flex items-center">
+                    <button class="text-gray-500 dark:text-gray-300 mr-4">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="relative">
+                        <input type="text" placeholder="搜索..." class="pl-10 pr-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-500 dark:text-gray-300">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
+                        <span class="text-gray-700 dark:text-gray-300">管理员</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 内容区 -->
+            <main class="p-6">
+                <div class="mb-6 flex justify-between items-center">
+                    <h2 class="text-2xl font-bold">仪表盘</h2>
+                    <div class="flex space-x-2">
+                        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                            <i class="fas fa-plus mr-2"></i>快速操作
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 数据卡片 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                    <div class="bg-white dark-card rounded-lg shadow p-6">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-400">总用户数</p>
+                                <h3 class="text-2xl font-bold">1,248</h3>
+                            </div>
+                            <div class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 p-3 rounded-full">
+                                <i class="fas fa-users text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-green-500 text-sm font-semibold">+12%</span>
+                            <span class="text-gray-500 dark:text-gray-400 text-sm ml-2">较上月</span>
+                        </div>
+                    </div>
+                    <div class="bg-white dark-card rounded-lg shadow p-6">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-400">部门数量</p>
+                                <h3 class="text-2xl font-bold">24</h3>
+                            </div>
+                            <div class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 p-3 rounded-full">
+                                <i class="fas fa-sitemap text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-green-500 text-sm font-semibold">+2</span>
+                            <span class="text-gray-500 dark:text-gray-400 text-sm ml-2">新增</span>
+                        </div>
+                    </div>
+                    <div class="bg-white dark-card rounded-lg shadow p-6">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-400">活跃用户</p>
+                                <h3 class="text-2xl font-bold">876</h3>
+                            </div>
+                            <div class="bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 p-3 rounded-full">
+                                <i class="fas fa-user-check text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-green-500 text-sm font-semibold">+5.3%</span>
+                            <span class="text-gray-500 dark:text-gray-400 text-sm ml-2">较上周</span>
+                        </div>
+                    </div>
+                    <div class="bg-white dark-card rounded-lg shadow p-6">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-400">权限组</p>
+                                <h3 class="text-2xl font-bold">8</h3>
+                            </div>
+                            <div class="bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300 p-3 rounded-full">
+                                <i class="fas fa-lock text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-gray-500 dark:text-gray-400 text-sm">最近更新: 今天</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 最近活动 -->
+                <div class="bg-white dark-card rounded-lg shadow mb-6">
+                    <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                        <h3 class="font-semibold">最近活动</h3>
+                    </div>
+                    <div class="p-4">
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 p-2 rounded-full mr-3">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">新增用户</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">管理员创建了新用户: 张三 (技术部)</p>
+                                    <p class="text-xs text-gray-400">10分钟前</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 p-2 rounded-full mr-3">
+                                    <i class="fas fa-sitemap"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">部门更新</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">管理员修改了市场部的权限设置</p>
+                                    <p class="text-xs text-gray-400">2小时前</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 p-2 rounded-full mr-3">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">权限更新</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">新增了"财务审核"权限组</p>
+                                    <p class="text-xs text-gray-400">昨天</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
 
     <script>
-        document.getElementById('loginBtn').addEventListener('click', function() {
-            window.location.href = 'login.html';
+        // 切换暗黑模式
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+        }
+        
+        // 模拟数据加载
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Admin dashboard loaded');
         });
     </script>
 </body>
